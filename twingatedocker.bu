@@ -1,0 +1,56 @@
+
+
+variant: fcos
+version: 1.4.0
+passwd:
+  users:
+    - name: core
+      password_hash: hashed-password-here 
+      ssh_authorized_keys: 
+        - key here
+systemd:
+  units:
+    - name: twingatedocker.service
+      enabled: true
+      contents: |
+        [Unit]
+        #Before=systemd-user-sessions.service
+        Wants=network-online.target
+        After=network-online.target
+        #ConditionPathExists=!/var/lib/twingatedocker
+
+        [Service]
+        Type=oneshot
+        ExecStart=/usr/local/bin/twingatedocker.sh
+        ExecStartPost=/usr/bin/touch /var/lib/twingatedocker
+        RemainAfterExit=yes
+
+        [Install]
+        WantedBy=multi-user.target
+storage:
+  files:
+    - path: /etc/systemd/resolved.conf
+      mode: 0644
+      overwrite: false
+      append:
+        - inline: |
+            DNS=10.0.80.11
+            DNS=10.38.76.172
+            DNS=10.0.80.12
+    - path: /etc/hostname
+      mode: 0644
+      contents:
+        inline: |
+          twingate-calculating-vulture
+    - path: /etc/profile.d/systemd-pager.sh
+      mode: 0644
+      contents:
+        inline: |
+          # Tell systemd to not use a pager when printing information
+          export SYSTEMD_PAGER=cat
+    - path: /usr/local/bin/twingatedocker.sh
+      mode: 0755
+      contents:
+        inline: |
+          #!/bin/bash
+          The script you get from twingate UI when adding a connector select docker

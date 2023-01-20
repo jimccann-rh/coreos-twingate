@@ -1,0 +1,10 @@
+export GOVC_URL=vcenter
+export GOVC_USERNAME=administrator@vsphere.local
+export GOVC_PASSWORD=''
+export GOVC_INSECURE=true
+export GOVC_DATASTORE=Datastore
+export GOVC_NETWORK='VM Network'
+export GOVC_NETWORK2='VM Network 2'
+export GOVC_RESOURCE_POOL='pool'
+export GOVC_DATACENTER='datacenter'
+export GOVC_CLUSTER='cluster'
