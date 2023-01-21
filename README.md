@@ -10,3 +10,4 @@ sudo dnf install -y butane coreos-installer ignition-validate
 
 Install package 'golang-github-vmware-govmomi' to provide command 'govc'? [N/y] y
 
+https://github.com/vmware/govmomi/blob/main/govc/README.md
